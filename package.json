@@ -1,6 +1,6 @@
 {
   "name": "openclaw-plugin-edicts",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "OpenClaw plugin adapter for Edicts — ground truth layer for AI agents",
   "type": "module",
   "main": "./dist/index.cjs",

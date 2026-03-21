@@ -12,6 +12,7 @@ import { registerEdictTools } from './src/tools.js';
 export interface OpenClawPluginApi {
   pluginConfig?: Record<string, unknown>;
   workspaceDir?: string;
+  config?: Record<string, any>;
   resolvePath?(relativePath: string): string;
   registerTool(
     factory: () => Array<{
@@ -56,8 +57,9 @@ const plugin = {
   register(api: OpenClawPluginApi) {
     const config = resolveConfig(api.pluginConfig ?? {});
 
-    // Resolve workspace dir: prefer resolvePath API, fall back to workspaceDir, then cwd
-    const workspaceDir = api.resolvePath?.('.') ?? api.workspaceDir ?? null;
+    // Resolve workspace dir from config (agents.defaults.workspace), fall back to resolvePath('.')
+    const configWorkspace = (api.config as any)?.agents?.defaults?.workspace;
+    const workspaceDir = configWorkspace ?? api.resolvePath?.('.') ?? null;
     if (!workspaceDir) {
       console.log('[edicts] register: no workspace dir available — skipping init (install-time probe)');
       return;
