@@ -48,7 +48,7 @@ function ensureEdictsFile(filePath: string): void {
 }
 
 const plugin = {
-  id: 'edicts',
+  id: 'openclaw-plugin-edicts',
   name: 'Edicts',
   description: 'Inject agent edicts into context and expose CRUD tools.',
 
