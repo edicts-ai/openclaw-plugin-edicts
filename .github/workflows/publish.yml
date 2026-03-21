@@ -19,20 +19,15 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
 
-      - name: Checkout and build edicts
-        uses: actions/checkout@v4
-        with:
-          repository: mssteuer/edicts
-          path: _edicts
-
-      - name: Pack edicts as tarball
+      - name: Build edicts tarball
         run: |
-          cd _edicts && npm install && npm run build && npm pack --pack-destination ..
-          ls -la ../edicts-*.tgz
+          git clone --depth 1 https://github.com/mssteuer/edicts.git /tmp/edicts
+          cd /tmp/edicts && npm install && npm run build && npm pack --pack-destination $GITHUB_WORKSPACE
+          ls -la $GITHUB_WORKSPACE/edicts-*.tgz
 
       - name: Install plugin with packed edicts
         run: |
-          npm pkg set "dependencies.edicts=$(echo edicts-*.tgz)"
+          npm pkg set "dependencies.edicts=$(ls edicts-*.tgz)"
           npm install
 
       - name: Lint
