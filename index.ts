@@ -56,9 +56,12 @@ const plugin = {
     const config = resolveConfig(api.pluginConfig ?? {});
 
     if (!api.workspaceDir) {
-      // Install-time probe — workspace not available yet. Skip initialization.
+      // Install-time or plugin-list probe — workspace not available yet.
+      console.log('[edicts] register called without workspaceDir — skipping init (install-time probe)');
       return;
     }
+
+    console.log(`[edicts] register: workspaceDir=${api.workspaceDir}, configPath=${config.path}`);
 
     const storePath = path.resolve(api.workspaceDir, config.path);
 
