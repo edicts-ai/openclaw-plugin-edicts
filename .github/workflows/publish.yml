@@ -20,7 +20,7 @@ jobs:
           cache: npm
           registry-url: https://registry.npmjs.org
 
-      - name: Use published edicts (not local file: link)
+      - name: "Use published edicts (not local file: link)"
         run: npm pkg set dependencies.edicts=">=0.1.0"
 
       - run: npm install
