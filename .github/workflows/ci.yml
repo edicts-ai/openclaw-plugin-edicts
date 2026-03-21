@@ -14,13 +14,21 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
 
-      - name: "Use published edicts (not local file: link)"
-        run: npm pkg set dependencies.edicts="github:mssteuer/edicts"
+      - name: Checkout edicts dependency
+        uses: actions/checkout@v4
+        with:
+          repository: mssteuer/edicts
+          path: edicts
 
-      - run: npm install
+      - name: Build edicts
+        run: cd edicts && npm install && npm run build
+
+      - name: Install plugin (uses file:./edicts)
+        run: |
+          npm pkg set dependencies.edicts="file:./edicts"
+          npm install
 
       - name: Lint
         run: npm run lint
