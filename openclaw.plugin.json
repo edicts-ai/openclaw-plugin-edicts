@@ -1,0 +1,39 @@
+{
+  "id": "edicts",
+  "name": "Edicts",
+  "description": "Inject agent edicts into context and expose CRUD tools.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "path": {
+        "type": "string",
+        "description": "Path to edicts storage file (YAML or JSON)"
+      },
+      "format": {
+        "type": "string",
+        "enum": ["yaml", "json"],
+        "description": "Storage format"
+      },
+      "autoInject": {
+        "type": "boolean",
+        "description": "Auto-inject edicts into system context on every session"
+      },
+      "autoInjectFilter": {
+        "type": "string",
+        "enum": ["all"],
+        "description": "Which edicts to inject (v1: only 'all')"
+      },
+      "tokenBudget": {
+        "type": "number",
+        "description": "Max tokens for context injection"
+      }
+    }
+  },
+  "uiHints": {
+    "path": { "label": "Storage Path", "placeholder": "edicts.yaml" },
+    "format": { "label": "Storage Format" },
+    "autoInject": { "label": "Auto-inject into Context" },
+    "tokenBudget": { "label": "Token Budget", "placeholder": "2000" }
+  }
+}
