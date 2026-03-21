@@ -55,6 +55,11 @@ const plugin = {
   register(api: OpenClawPluginApi) {
     const config = resolveConfig(api.pluginConfig ?? {});
 
+    if (!api.workspaceDir) {
+      // Install-time probe — workspace not available yet. Skip initialization.
+      return;
+    }
+
     const storePath = path.resolve(api.workspaceDir, config.path);
 
     // Auto-create edicts file on first run — no manual init needed
