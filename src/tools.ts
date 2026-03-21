@@ -73,7 +73,7 @@ function buildTools(store: EdictStore): Tool[] {
           }
           if (results.length === 0) return text('No edicts found matching the criteria.');
           return text(`${results.length} edict(s) found:\n\n${serialize(results)}`);
-        } catch (err) {
+        } catch (err: unknown) {
           return text(`Error listing edicts: ${friendlyError(err)}`);
         }
       },
@@ -101,7 +101,7 @@ function buildTools(store: EdictStore): Tool[] {
           const s = await ensureLoaded(store);
           const result = await s.add(params);
           return text(`Edict created:\n${serialize(result)}`);
-        } catch (err) {
+        } catch (err: unknown) {
           return text(`Error adding edict: ${friendlyError(err)}`);
         }
       },
@@ -129,7 +129,7 @@ function buildTools(store: EdictStore): Tool[] {
           const s = await ensureLoaded(store);
           const result = await s.update(id, patch);
           return text(`Edict updated:\n${serialize(result)}`);
-        } catch (err) {
+        } catch (err: unknown) {
           return text(`Error updating edict: ${friendlyError(err)}`);
         }
       },
@@ -150,7 +150,7 @@ function buildTools(store: EdictStore): Tool[] {
           const s = await ensureLoaded(store);
           const result = await s.remove(params.id);
           return text(`Edict removed:\n${serialize(result)}`);
-        } catch (err) {
+        } catch (err: unknown) {
           return text(`Error removing edict: ${friendlyError(err)}`);
         }
       },
@@ -176,7 +176,7 @@ function buildTools(store: EdictStore): Tool[] {
           }
           if (results.length === 0) return text('No edicts matched the search query.');
           return text(`${results.length} match(es):\n\n${serialize(results)}`);
-        } catch (err) {
+        } catch (err: unknown) {
           return text(`Error searching edicts: ${friendlyError(err)}`);
         }
       },
@@ -194,7 +194,7 @@ function buildTools(store: EdictStore): Tool[] {
           const s = await ensureLoaded(store);
           const stats = await s.stats();
           return text(`Edict store statistics:\n\n${serialize(stats)}`);
-        } catch (err) {
+        } catch (err: unknown) {
           return text(`Error fetching stats: ${friendlyError(err)}`);
         }
       },
@@ -221,7 +221,7 @@ function buildTools(store: EdictStore): Tool[] {
           }
           const result = await s.review();
           return text(`Review (preview):\n\n${serialize(result)}`);
-        } catch (err) {
+        } catch (err: unknown) {
           return text(`Error reviewing edicts: ${friendlyError(err)}`);
         }
       },
