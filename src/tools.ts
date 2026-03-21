@@ -214,8 +214,10 @@ function buildTools(store: EdictStore): Tool[] {
           const s = await ensureLoaded(store);
           const action = params.action ?? 'preview';
           if (action === 'compact') {
-            const result = await s.compact();
-            return text(`Compaction complete:\n\n${serialize(result)}`);
+            // compact() requires a callback-driven merge (group + merged edict).
+            // For now, run review() and flag compaction candidates.
+            const result = await s.review();
+            return text(`Compaction candidates (auto-compact requires LLM callback — v2):\n\n${serialize(result)}`);
           }
           const result = await s.review();
           return text(`Review (preview):\n\n${serialize(result)}`);
