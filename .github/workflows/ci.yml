@@ -24,7 +24,7 @@ jobs:
 
       - name: Install plugin with packed edicts
         run: |
-          npm pkg set "dependencies.edicts=$(ls edicts-*.tgz)"
+          npm install ./edicts-*.tgz
           npm install
 
       - name: Lint
