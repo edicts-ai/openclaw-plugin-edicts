@@ -16,16 +16,8 @@ jobs:
         with:
           node-version: 22
 
-      - name: Build edicts tarball
-        run: |
-          git clone --depth 1 https://github.com/mssteuer/edicts.git /tmp/edicts
-          cd /tmp/edicts && npm install && npm run build && npm pack --pack-destination $GITHUB_WORKSPACE
-          ls -la $GITHUB_WORKSPACE/edicts-*.tgz
-
-      - name: Install plugin with packed edicts
-        run: |
-          npm install ./edicts-*.tgz
-          npm install
+      - name: Install
+        run: npm install
 
       - name: Lint
         run: npm run lint

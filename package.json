@@ -41,11 +41,8 @@
   "engines": {
     "node": ">=20"
   },
-  "peerDependencies": {
-    "edicts": ">=0.1.0"
-  },
   "dependencies": {
-    "edicts": ">=0.1.0"
+    "edicts": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

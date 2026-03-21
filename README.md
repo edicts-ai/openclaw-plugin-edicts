@@ -7,7 +7,7 @@ Automatically injects edicts into every agent session and exposes CRUD tools so 
 ## Install
 
 ```bash
-openclaw plugins install github:mssteuer/openclaw-plugin-edicts
+openclaw plugins install openclaw-plugin-edicts
 openclaw gateway restart
 ```
 
