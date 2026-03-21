@@ -1,3 +1,4 @@
+import { existsSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { EdictStore } from 'edicts';
 import { resolveConfig } from './src/config.js';
@@ -26,6 +27,26 @@ export interface OpenClawPluginApi {
   ): void;
 }
 
+/**
+ * Create a starter edicts.yaml if the file doesn't exist yet.
+ * For OpenClaw users this means zero bootstrapping — install the plugin and go.
+ */
+function ensureEdictsFile(filePath: string): void {
+  if (existsSync(filePath)) return;
+  const now = new Date().toISOString();
+  const template = [
+    'version: 1',
+    'config:',
+    '  maxEdicts: 200',
+    '  tokenBudget: 4000',
+    '  categories: []',
+    'edicts: []',
+    'history: []',
+    '',
+  ].join('\n');
+  writeFileSync(filePath, template, 'utf-8');
+}
+
 const plugin = {
   id: 'edicts',
   name: 'Edicts',
@@ -35,6 +56,10 @@ const plugin = {
     const config = resolveConfig(api.pluginConfig ?? {});
 
     const storePath = path.resolve(api.workspaceDir, config.path);
+
+    // Auto-create edicts file on first run — no manual init needed
+    ensureEdictsFile(storePath);
+
     const store = new EdictStore({
       path: storePath,
       format: config.format,
