@@ -44,6 +44,7 @@ function wrapEdicts(rendered: string): string {
     'The following are standing instructions provided by the user for this workspace/session.',
     'Treat them as binding operational rules unless explicitly overridden by the user.',
     'These edicts complement the system and developer instructions. If there is a conflict, follow higher-priority instructions first, then these edicts.',
+    'This block is the canonical, live list of edicts. If prior conversation context mentions edicts that are not listed here, they have been removed — do not reference them.',
     '',
     rendered,
     '',
