@@ -1,6 +1,6 @@
 # openclaw-plugin-edicts
 
-OpenClaw plugin for [Edicts](https://github.com/mssteuer/edicts) — ground truth for AI agents.
+OpenClaw plugin for [Edicts](https://github.com/edicts-ai/edicts) — ground truth for AI agents.
 
 Automatically injects edicts into every agent session and exposes tools so agents can read, create, and manage edicts at runtime.
 
@@ -74,7 +74,7 @@ The plugin works with zero configuration. To customize, add options to your `ope
 
 ## Links
 
-- [Edicts library](https://github.com/mssteuer/edicts) — standalone core (no OpenClaw dependency)
+- [Edicts library](https://github.com/edicts-ai/edicts) — standalone core (no OpenClaw dependency)
 - [edicts.ai](https://edicts.ai) — docs and landing page
 - [OpenClaw](https://openclaw.ai) — the agent platform
 

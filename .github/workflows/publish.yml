@@ -21,7 +21,7 @@ jobs:
 
       - name: Build edicts tarball
         run: |
-          git clone --depth 1 https://github.com/mssteuer/edicts.git /tmp/edicts
+          git clone --depth 1 https://github.com/edicts-ai/edicts.git /tmp/edicts
           cd /tmp/edicts && npm install && npm run build && npm pack --pack-destination $GITHUB_WORKSPACE
           ls -la $GITHUB_WORKSPACE/edicts-*.tgz
 
@@ -39,10 +39,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Set published dependency version
-        run: npm pkg set dependencies.edicts=">=0.1.0"
-
-      - name: Publish
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Publish disabled — currently publishing manually.
+      # Uncomment and add NPM_TOKEN secret to enable automated publishing.
+      # - name: Set published dependency version
+      #   run: npm pkg set dependencies.edicts=">=0.1.0"
+      #
+      # - name: Publish
+      #   run: npm publish --provenance --access public
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
