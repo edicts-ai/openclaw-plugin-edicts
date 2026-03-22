@@ -1,4 +1,3 @@
-import { renderPlain } from 'edicts';
 import type { EdictStore } from 'edicts';
 import type { ResolvedConfig } from './config.js';
 
@@ -9,7 +8,7 @@ import type { ResolvedConfig } from './config.js';
 export function createContextHook(
   store: EdictStore,
   config: ResolvedConfig,
-): () => Promise<{ appendSystemContext?: string } | Record<string, never>> {
+): () => Promise<{ prependSystemContext?: string } | Record<string, never>> {
   return async () => {
     try {
       await store.load();
@@ -24,18 +23,30 @@ export function createContextHook(
       return {};
     }
 
-    const rendered = renderPlain(edicts);
-    const appendSystemContext = wrapEdicts(rendered);
+    const rendered = renderEdictTexts(edicts);
+    const prependSystemContext = wrapEdicts(rendered);
 
-    return { appendSystemContext };
+    return { prependSystemContext };
   };
+}
+
+function renderEdictTexts(edicts: Array<{ text: string; category?: string }>): string {
+  return edicts.map((edict) => {
+    const prefix = edict.category ? `[${edict.category}] ` : '';
+    return `- ${prefix}${edict.text}`;
+  }).join('\n');
 }
 
 function wrapEdicts(rendered: string): string {
   return [
-    '## Edicts (Standing Instructions)',
-    'The following are your standing instructions. Follow them unless explicitly overridden.',
+    '## EDICTS — BINDING STANDING INSTRUCTIONS',
+    '',
+    'The following are standing instructions provided by the user for this workspace/session.',
+    'Treat them as binding operational rules unless explicitly overridden by the user.',
+    'These edicts complement the system and developer instructions. If there is a conflict, follow higher-priority instructions first, then these edicts.',
     '',
     rendered,
+    '',
+    '## END EDICTS',
   ].join('\n');
 }

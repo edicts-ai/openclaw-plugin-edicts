@@ -25,7 +25,7 @@ describe('createContextHook', () => {
     expect(result).toEqual({});
   });
 
-  it('injects edicts into appendSystemContext', async () => {
+  it('injects edicts into prependSystemContext', async () => {
     const storePath = join(tempDir, 'edicts.yaml');
     const store = new EdictStore({ path: storePath, autoSave: true });
     await store.load();
@@ -36,11 +36,13 @@ describe('createContextHook', () => {
     const hook = createContextHook(store, config);
     const result = await hook();
 
-    expect(result).toHaveProperty('appendSystemContext');
-    const ctx = (result as { appendSystemContext: string }).appendSystemContext;
-    expect(ctx).toContain('Edicts (Standing Instructions)');
+    expect(result).toHaveProperty('prependSystemContext');
+    const ctx = (result as { prependSystemContext: string }).prependSystemContext;
+    expect(ctx).toContain('## EDICTS — BINDING STANDING INSTRUCTIONS');
+    expect(ctx).toContain('Treat them as binding operational rules unless explicitly overridden by the user.');
     expect(ctx).toContain('Always use TypeScript');
     expect(ctx).toContain('Deploy on Fridays is banned');
+    expect(ctx).toContain('## END EDICTS');
   });
 
   it('returns empty when store file does not exist', async () => {

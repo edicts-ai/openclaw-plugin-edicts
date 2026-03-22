@@ -82,7 +82,7 @@ const plugin = {
     registerEdictTools(api, store);
 
     if (config.autoInject) {
-      api.on('before_prompt_build', createContextHook(store, config));
+      api.on('before_prompt_build', createContextHook(store, config) as any);
     }
   },
 };
